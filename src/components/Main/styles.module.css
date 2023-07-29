@@ -1,0 +1,69 @@
+.navbar {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end; /* Zmiana wartości na flex-end */
+	background-color: #065c4f;
+	padding: 10px;
+	color: white;
+	/* cursor: url('../../kursor.png'), default; */
+  }
+  
+  .navbar h1 {
+	font-size: 35px;
+	margin: 0;
+	margin-right: auto;
+  }
+  
+  .navbar button {
+	border: none;
+	outline: none;
+	padding: 10px 20px;
+	background-color: transparent;
+	color: white;
+	font-size: 20px;
+	cursor: pointer;
+  }
+  
+  .navbar button:first-child {
+	margin-left: auto; /* Dodaj tę linię, aby przesunąć pierwszy przycisk na prawo */
+  }
+  
+  .navbar button:hover {
+	background-color: rgba(255, 255, 255, 0.2);
+	transition: background-color 0.3s ease;
+  }
+
+ /* Przykładowe style dla responsywności */
+.heading-1 {
+	/* Twoje istniejące style dla tytułu */
+	font-size: 36px;
+  }
+  
+  .heading-2 {
+	/* Twoje istniejące style dla tytułu */
+	font-size: 24px;
+  }
+  
+  /* Responsywność dla ekranów o szerokości mniejszej niż 768px */
+  @media (max-width: 768px) {
+	.heading-1 {
+	  font-size: 28px; /* Nowy rozmiar czcionki dla ekranów mniejszych niż 768px */
+	}
+  
+	.heading-2 {
+	  font-size: 18px; /* Nowy rozmiar czcionki dla ekranów mniejszych niż 768px */
+	}
+  }
+  
+  /* Dodane style CSS */
+.gallery-container {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 20px;
+  }
+  
+  .gallery-image {
+	width: 100%;
+	max-width: 450px;
+	height: auto;
+  }
