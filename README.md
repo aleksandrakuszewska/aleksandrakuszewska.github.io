@@ -1,3 +1,3 @@
-# aleksandrakuszewska.github.io
+# Moja strona o Tenisie
 
 https://aleksandrakuszewska.github.io
