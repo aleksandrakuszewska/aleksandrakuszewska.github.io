@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aleksandra Kuszewska - Instruktorka Tenisa | Lublin</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #10b981;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #4a5568;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #10b981;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #10b981;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.9) 0%, rgba(5, 150, 105, 0.9) 100%), 
+                        url('https://images.unsplash.com/photo-1554068865-24cecd4e34b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>') repeat;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+
+        .hero-content {
+            color: white;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .hero .description {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #10b981;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .cta-button:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+        }
+
+		.tennis-ball {
+		    position: absolute;
+		    right: 10%;
+		    top: 50%;
+		    transform: translateY(-50%);
+		    width: 150px;
+		    height: 150px;
+		    background-image: url('/Users/olakuszewska/Downloads/tenis/pngimg.com\ -\ tennis_ball_PNG21.png');
+		    background-size: contain;
+		    background-repeat: no-repeat;
+		    background-position: center;
+		    border-radius: 50%; /* opcjonalnie dla efektu okrągłego */
+		    opacity: 0.9;
+		    animation: bounce 3s infinite ease-in-out;
+		}
+
+
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(-50%) translateX(0); }
+            50% { transform: translateY(-50%) translateX(20px); }
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #2d3748;
+        }
+
+        /* About Section */
+        .about {
+            background: linear-gradient(rgba(247, 250, 252, 0.95), rgba(247, 250, 252, 0.95)), 
+                        url('https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-image {
+            text-align: center;
+        }
+
+        .profile-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-10px);
+        }
+.profile-img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+}
+
+.profile-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: #10b981;
+            box-shadow: 0 20px 40px rgba(16, 185, 129, 0.15);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #2d3748;
+        }
+
+        /* Services Section */
+        .services {
+            background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), 
+                        url('https://twojezdrowie24.pl/wp-content/uploads/2024/08/tennis-5782695_1280.jpg') center/cover;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.95) 0%, rgba(5, 150, 105, 0.95) 100%), 
+                        url('https://images.unsplash.com/photo-1542144582-1ba00456b5e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            color: white;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .pricing-card.featured {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 1rem 0;
+        }
+
+        /* Contact Section */
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), 
+                        url('https://s6.tvp.pl/images2/6/8/2/uid_682f2c7ed2f747f48444a6e45fdee72c_width_570_play_0_pos_0_gs_0_height_319_magdalena-frech-fot-getty-.jpg') center/cover;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info {
+            background: #f7fafc;
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: #10b981;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            color: white;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #10b981;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #059669;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(rgba(45, 55, 72, 0.95), rgba(45, 55, 72, 0.95)), 
+                        url('https://images.unsplash.com/photo-1544718985-1a7d68d1231b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .tennis-ball {
+                display: none;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">🎾 Aleksandra Kuszewska</div>
+                <ul class="nav-links">
+                    <li><a href="#home">Start</a></li>
+                    <li><a href="#about">O mnie</a></li>
+                    <li><a href="#services">Usługi</a></li>
+                    <li><a href="#pricing">Cennik</a></li>
+                    <li><a href="#contact">Kontakt</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Profesjonalna Nauka Tenisa</h1>
+                <p class="subtitle">Doświadczona instruktorka w Lublinie</p>
+                <p class="description">
+                    Oferuję indywidualne i grupowe lekcje tenisa dla wszystkich poziomów zaawansowania. 
+                    Dzięki mojemu doświadczeniu i pasji pomogę Ci rozwinąć umiejętności i pokochać ten sport.
+                </p>
+                <a href="#contact" class="cta-button">Zarezerwuj lekcję</a>
+            </div>
+        </div>
+        <div class="tennis-ball"></div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section about">
+        <div class="container">
+            <h2 class="section-title fade-in">O mnie</h2>
+            <div class="about-content">
+                <div class="about-text fade-in">
+                    <h3>Witaj! Jestem Aleksandra Kuszewska</h3>
+                    <p>
+                        Od zawsze kochałam tenis i teraz z dumą i zaangażowaniem dzielę się tą pasją. 
+                        Jestem certyfikowaną instruktorką z licencją PZT (Polski Związek Tenisowy).
+                    </p>
+                    <p>
+                        Moja filozofia nauczania opiera się na indywidualnym podejściu do każdego ucznia. 
+                        Wierzę, że każdy może nauczyć się grać w tenisa, niezależnie od wieku. 
+                        Moim celem jest nie tylko nauczenie technik gry, ale także przekazanie miłości do tego sportu.
+                    </p>
+                    <p>
+                        <strong>Moje osiągnięcia:</strong><br>
+                        • Certyfikat ITF - International Tennis Federation<br>
+                        • Wielu zadowolonych uczniów<br>
+                        • Kilka lat doświadczenia w nauczaniu
+                    </p>
+                </div>
+                <div class="about-image fade-in">
+                    <div class="profile-card">
+       					 <div class="profile-img">
+       					     <img src="zdj.png" />
+       					 </div>
+                        <h3>Aleksandra Kuszewska</h3>
+                        <p>Certyfikowana Instruktorka Tenisa</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section services">
+        <div class="container">
+            <h2 class="section-title fade-in">Moje Usługi</h2>
+            <div class="services-grid">
+                <div class="service-card fade-in">
+                    <div class="service-icon">👤</div>
+                    <h3>Lekcje Indywidualne</h3>
+                    <p>
+                        Spersonalizowane treningi dostosowane do Twojego poziomu i celów. 
+                        Maksymalna uwaga i szybszy postęp w nauce.
+                    </p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">👥</div>
+                    <h3>Lekcje Grupowe</h3>
+                    <p>
+                        Nauka w grupach 2-4 osobowych. Świetna atmosfera, możliwość gry z innymi 
+                        i atrakcyjna cena.
+                    </p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">👶</div>
+                    <h3>Tenis dla Dzieci</h3>
+                    <p>
+                        Zabawne i bezpieczne wprowadzenie do tenisa dla najmłodszych (5-12 lat). 
+                        Rozwijamy koordynację i miłość do sportu.
+                    </p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">🎯</div>
+                    <h3>Analiza Techniki</h3>
+                    <p>
+                        Szczegółowa analiza Twojej techniki z wykorzystaniem nagrań wideo 
+                        i profesjonalnych wskazówek.
+                    </p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">💪</div>
+                    <h3>Kondycja Tenisowa</h3>
+                    <p>
+                        Specjalistyczne treningi kondycyjne dostosowane do potrzeb tenisisty. 
+                        Siła, szybkość i wytrzymałość.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section pricing">
+        <div class="container">
+            <h2 class="section-title">Cennik</h2>
+            <div class="pricing-grid">
+
+                <div class="pricing-card featured fade-in">
+                    <h3>Lekcja Grupowa</h3>
+                    <div class="price">60 zł</div>
+                    <p>60 minut / osoba</p>
+                    <ul style="list-style: none; text-align: left; margin-top: 1rem;">
+                        <li>✓ Grupa 2-4 osoby</li>
+                        <li>✓ Sparingi</li>
+                        <li>✓ Świetna atmosfera</li>
+                        <li>✓ Atrakcyjna cena</li>
+                    </ul>
+
+                </div>
+                                <div class="pricing-card fade-in">
+                    <h3>Lekcja Indywidualna</h3>
+                    <div class="price">100 zł</div>
+                    <p>60 minut</p>
+                    <ul style="list-style: none; text-align: left; margin-top: 1rem;">
+                        <li>✓ Pełna uwaga trenera</li>
+                        <li>✓ Spersonalizowany program</li>
+                        <li>✓ Analiza techniki</li>
+                        <li>✓ Elastyczne terminy</li>
+                    </ul>
+                                        <div style="background: #10b981; color: white; padding: 0.5rem 1rem; border-radius: 15px; margin-top: 1rem; font-size: 0.9rem;">
+                        NAJPOPULARNIEJSZE
+                    </div>
+                </div>
+                <div class="pricing-card fade-in">
+                    <h3>Karnet 10 lekcji</h3>
+                    <div class="price">800 zł</div>
+                    <p>Indywidualne</p>
+                    <ul style="list-style: none; text-align: left; margin-top: 1rem;">
+                        <li>✓ Oszczędność 200 zł</li>
+                        <li>✓ Ważność 2 miesiące</li>
+                        <li>✓ Elastyczne terminy</li>
+                        <li>✓ Gwarancja efektów</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 2rem; font-size: 0.9rem;">
+                <p>* Ceny nie zawierają wynajmu kortu. Pierwsze zajęcia próbne -20%</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact">
+        <div class="container">
+            <h2 class="section-title fade-in">Kontakt</h2>
+            <div class="contact-content">
+                <div class="contact-info fade-in">
+                    <h3>Skontaktuj się ze mną</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div>
+                            <strong>Telefon</strong><br>
+                            +48 577 160 707
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div>
+                            <strong>Email</strong><br>
+                            olakuszewska1@gmail.com
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <strong>Lokalizacja</strong><br>
+                            Korty tenisowe<br>
+                            ul. Irydiona 3, Lublin
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🕒</div>
+                        <div>
+                            <strong>Godziny zajęć</strong><br>
+                            Pon-Pt: 9:00-21:00<br>
+                            Sob-Ndz: 8:00-20:00
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-info fade-in">
+                    <h3>Lokalizacja</h3>
+                    <iframe
+            src="https://www.google.com/maps?q=ul.+Irydiona+3,+Lublin,+Polska&output=embed"
+            width="100%"
+            height="300"
+            style="border:0; border-radius: 10px;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; Aleksandra Kuszewska - Instruktorka Tenisa. Wszystkie prawa zastrzeżone.</p>
+            <p>Lublin • Profesjonalna nauka tenisa • Certyfikowany trener PZT</p>
+        </div>
+    </footer>
+
+    <script>
+        // GSAP Animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hero animations
+            gsap.timeline()
+                .to('.hero h1', { opacity: 1, y: 0, duration: 1, delay: 0.5 })
+                .to('.hero .subtitle', { opacity: 1, y: 0, duration: 1, delay: 0.2 })
+                .to('.hero .description', { opacity: 1, y: 0, duration: 1, delay: 0.2 })
+                .to('.hero .cta-button', { opacity: 1, y: 0, duration: 1, delay: 0.2 });
+
+            // Scroll animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Form submission
+            document.getElementById('contactForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Dziękuję za wiadomość! Skontaktuję się z Tobą w ciągu 24 godzin.');
+                this.reset();
+            });
+
+            // Navbar background on scroll
+            window.addEventListener('scroll', function() {
+                const nav = document.querySelector('nav');
+                if (window.scrollY > 100) {
+                    nav.style.background = 'rgba(255, 255, 255, 0.98)';
+                } else {
+                    nav.style.background = 'rgba(255, 255, 255, 0.95)';
+                }
+            });
+
+            // Service cards hover effect
+            document.querySelectorAll('.service-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    gsap.to(this, { scale: 1.05, duration: 0.3 });
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    gsap.to(this, { scale: 1, duration: 0.3 });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
